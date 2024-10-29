@@ -12,6 +12,15 @@ if [ "$INPUT_TARGET" = "x86_64-unknown-linux-gnu" ]; then
     apt-get update
     apt-get install -y libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev libglib2.0-dev libgtk-3-dev libwebkit2gtk-4.1-dev libsoup-3.0-dev libjavascriptcoregtk-4.1-dev
     export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
+elif [ "$INPUT_TARGET" = "armv7-unknown-linux-gnueabihf" ]; then
+    dpkg --add-architecture armhf
+    apt-get update
+    apt-get install -y libxdo-dev:armhf libssl-dev:armhf libayatana-appindicator3-dev:armhf librsvg2-dev:armhf libglib2.0-dev:armhf libgtk-3-dev:armhf libwebkit2gtk-4.1-dev:armhf libsoup-3.0-dev:armhf libjavascriptcoregtk-4.1-dev:armhf
+    export CARGO_TARGET_ARMV7_UNKNOWN_LINUX_GNUEABIHF_LINKER=arm-linux-gnueabihf-gcc
+    export CC_armv7_unknown_linux_gnueabihf=arm-linux-gnueabihf-gcc
+    export CXX_armv7_unknown_linux_gnueabihf=arm-linux-gnueabihf-g++
+    export PKG_CONFIG_PATH=/usr/lib/arm-linux-gnueabihf/pkgconfig
+    export PKG_CONFIG_ALLOW_CROSS=1
 fi
 
 bash .github/build-for-linux/build.sh

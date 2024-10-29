@@ -144,6 +144,7 @@ pub fn run() {
                     tauri::WindowEvent::CloseRequested { .. } => {
                         println!("closing window...");
                         let _ = resolve::save_window_size_position(true);
+                        std::thread::sleep(std::time::Duration::from_millis(1000));
                     }
                     tauri::WindowEvent::Moved(_) | tauri::WindowEvent::Resized(_) => {
                         let _ = resolve::save_window_size_position(false);
